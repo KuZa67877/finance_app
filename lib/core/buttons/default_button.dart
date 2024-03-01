@@ -1,5 +1,5 @@
-import 'package:finance_app/colors.dart';
-import 'package:finance_app/theme.dart';
+import 'package:finance_app/res/colors.dart';
+import 'package:finance_app/res/theme.dart';
 import 'package:flutter/material.dart';
 
 class DefaultButton extends StatefulWidget {

@@ -1,9 +1,9 @@
-import 'package:finance_app/colors.dart';
-import 'package:finance_app/main_screen.dart';
-import 'package:finance_app/news_screen.dart';
-import 'package:finance_app/settings.dart';
-import 'package:finance_app/start_screen_widget.dart';
-import 'package:finance_app/strings.dart';
+import 'package:finance_app/res/colors.dart';
+import 'package:finance_app/app/main_screen.dart';
+import 'package:finance_app/features/news_screen.dart';
+import 'package:finance_app/features/settings.dart';
+import 'package:finance_app/features/start_screen_widget.dart';
+import 'package:finance_app/res/strings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 

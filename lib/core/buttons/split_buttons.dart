@@ -1,5 +1,5 @@
 import 'package:animated_button_bar/animated_button_bar.dart';
-import 'package:finance_app/colors.dart';
+import 'package:finance_app/res/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 

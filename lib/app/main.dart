@@ -1,4 +1,4 @@
-import 'package:finance_app/navigation_bar.dart';
+import 'package:finance_app/app/navigation_bar.dart';
 import 'package:flutter/material.dart';
 
 void main() {

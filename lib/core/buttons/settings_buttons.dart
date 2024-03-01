@@ -1,5 +1,6 @@
-import 'package:finance_app/colors.dart';
-import 'package:finance_app/theme.dart';
+import 'package:finance_app/app/info.dart';
+import 'package:finance_app/res/colors.dart';
+import 'package:finance_app/res/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -70,7 +71,9 @@ class _ReloadSumButtonState extends State<ReloadSumButton> {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
       child: InkWell(
-          onTap: () {},
+          onTap: () {
+            Money.clearIncome();
+          },
           child: Container(
             width: 358,
             height: 48,

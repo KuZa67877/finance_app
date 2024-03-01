@@ -1,7 +1,8 @@
-import 'package:finance_app/colors.dart';
-import 'package:finance_app/default_button.dart';
-import 'package:finance_app/textfield.dart';
-import 'package:finance_app/theme.dart';
+import 'package:finance_app/app/info.dart';
+import 'package:finance_app/res/colors.dart';
+import 'package:finance_app/core/buttons/default_button.dart';
+import 'package:finance_app/core/textfield.dart';
+import 'package:finance_app/res/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:group_button/group_button.dart';
 
@@ -46,6 +47,9 @@ class _SignInOptionsScreenState extends State<SignInOptionsScreen> {
     // alignment: Alignment.center,
     // elevation: 0,
   );
+  final descriptionController = TextEditingController();
+  final sumController = TextEditingController();
+  final dateController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -55,12 +59,12 @@ class _SignInOptionsScreenState extends State<SignInOptionsScreen> {
         Positioned(
           top: 15,
           child: Container(
-            width: 60,
-            height: 7,
-            margin: const EdgeInsets.only(bottom: 20),
+            width: 36,
+            height: 5,
+            margin: const EdgeInsets.only(bottom: 5),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(5),
-              color: AppColors.backgroundBlue,
+              color: AppColors.darkBlue,
             ),
           ),
         ),
@@ -69,9 +73,13 @@ class _SignInOptionsScreenState extends State<SignInOptionsScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  "Добавить расходы",
-                  style: theme.bodyLarge,
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+                  child: Text(
+                    "Добавить расходы",
+                    style: theme.bodyLarge,
+                  ),
                 ),
                 IconButton(
                     onPressed: () {
@@ -87,13 +95,67 @@ class _SignInOptionsScreenState extends State<SignInOptionsScreen> {
                     ))
               ],
             ),
-            const Text("Описание"),
-            TextFieldWidget(info: "Например (Покупка велосипеда)"),
-            Text("Сумма"),
-            TextFieldWidget(info: "0 Р"),
-            Text("Дата"),
-            TextFieldWidget(info: ""),
-            Text("Категории"),
+            const Padding(
+              padding: EdgeInsets.only(left: 16, bottom: 8),
+              child: Align(
+                alignment: Alignment.topLeft,
+                child: Text(
+                  "Описание",
+                  style: TextStyle(
+                      fontWeight: FontWeight.w500,
+                      fontSize: 16,
+                      color: AppColors.deepGrey),
+                ),
+              ),
+            ),
+            TextFieldWidget(
+              info: "Например (Покупка велосипеда)",
+              controller: descriptionController,
+              isString: true,
+            ),
+            const Padding(
+              padding: EdgeInsets.only(left: 16, bottom: 8),
+              child: Align(
+                alignment: Alignment.topLeft,
+                child: Text("Сумма",
+                    style: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        fontSize: 16,
+                        color: AppColors.deepGrey)),
+              ),
+            ),
+            TextFieldWidget(
+              info: "0 Р",
+              controller: sumController,
+              isString: false,
+            ),
+            const Padding(
+              padding: EdgeInsets.only(left: 16, bottom: 8),
+              child: Align(
+                alignment: Alignment.topLeft,
+                child: Text("Дата",
+                    style: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        fontSize: 16,
+                        color: AppColors.deepGrey)),
+              ),
+            ),
+            TextFieldWidget(
+              info: "",
+              controller: dateController,
+              isString: true,
+            ),
+            const Padding(
+              padding: EdgeInsets.only(left: 16, bottom: 8),
+              child: Align(
+                alignment: Alignment.topLeft,
+                child: Text("Категории",
+                    style: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        fontSize: 16,
+                        color: AppColors.deepGrey)),
+              ),
+            ),
             SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: Row(
@@ -113,9 +175,23 @@ class _SignInOptionsScreenState extends State<SignInOptionsScreen> {
                 ],
               ),
             ),
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 20),
-              child: DefaultButton(text: "Добавить"),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
+              child: ElevatedButton(
+                onPressed: () {
+                  // Предположим, что вы уже создали новый объект Expenses
+                  Expenses newExpense = Expenses(
+                    sum: int.parse(sumController.text),
+                    theme: 1, // Вам нужно будет определить, как выбирается тема
+                    description: descriptionController.text,
+                    date: dateController.text,
+                  );
+                  //Money.addExpense(newExpense);
+                  Navigator.pop(
+                      context, newExpense); // Передаем новый расход обратно
+                },
+                child: Text("Добавить"),
+              ),
             )
           ],
         )

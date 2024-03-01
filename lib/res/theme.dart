@@ -1,4 +1,4 @@
-import 'package:finance_app/colors.dart';
+import 'package:finance_app/res/colors.dart';
 import 'package:flutter/material.dart';
 
 ThemeData getTheme() => ThemeData(

@@ -1,7 +1,7 @@
-import 'package:finance_app/colors.dart';
-import 'package:finance_app/settings_buttons.dart';
-import 'package:finance_app/strings.dart';
-import 'package:finance_app/theme.dart';
+import 'package:finance_app/res/colors.dart';
+import 'package:finance_app/core/buttons/settings_buttons.dart';
+import 'package:finance_app/res/strings.dart';
+import 'package:finance_app/res/theme.dart';
 import 'package:flutter/material.dart';
 
 class SettingsScreen extends StatefulWidget {

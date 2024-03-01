@@ -1,9 +1,10 @@
-import 'package:finance_app/add_expenses.dart';
-import 'package:finance_app/colors.dart';
-import 'package:finance_app/info.dart';
-import 'package:finance_app/split_buttons.dart';
-import 'package:finance_app/strings.dart';
-import 'package:finance_app/theme.dart';
+import 'package:finance_app/core/add_expenses.dart';
+import 'package:finance_app/core/expenses_widget.dart';
+import 'package:finance_app/res/colors.dart';
+import 'package:finance_app/app/info.dart';
+import 'package:finance_app/core/buttons/split_buttons.dart';
+import 'package:finance_app/res/strings.dart';
+import 'package:finance_app/res/theme.dart';
 import 'package:flutter/material.dart';
 
 class MainScreen extends StatefulWidget {
@@ -14,27 +15,42 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
+  @override
+  void initState() {
+    super.initState();
+    Money.loadData();
+  }
+
   void _showModalBottomSheet(BuildContext context) {
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
       backgroundColor: AppColors.backgroundBlue,
       shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(
-        top: Radius.circular(30),
-      )),
+        borderRadius: BorderRadius.vertical(
+          top: Radius.circular(30),
+        ),
+      ),
       builder: (context) => DraggableScrollableSheet(
-          initialChildSize: 0.4,
-          maxChildSize: 0.9,
-          minChildSize: 0.32,
-          expand: false,
-          builder: (context, scrollController) {
-            return SingleChildScrollView(
-              controller: scrollController,
-              child: SignInOptionsScreen(),
-            );
-          }),
-    );
+        initialChildSize: 0.4,
+        maxChildSize: 0.9,
+        minChildSize: 0.32,
+        expand: false,
+        builder: (context, scrollController) {
+          return SingleChildScrollView(
+            controller: scrollController,
+            child: SignInOptionsScreen(),
+          );
+        },
+      ),
+    ).then((newExpense) {
+      if (newExpense != null) {
+        setState(() {
+          // Обновляем список расходов
+          Money.expenses.add(newExpense);
+        });
+      }
+    });
   }
 
   final theme = getTheme().textTheme;
@@ -52,7 +68,7 @@ class _MainScreenState extends State<MainScreen> {
                 color: AppColors.grey),
           ),
           Text(
-            "0 P",
+            "${Money.getTotalSum()} ₽", // Обновляемый счетчик
             style: theme.titleLarge,
           )
         ]),
@@ -67,8 +83,19 @@ class _MainScreenState extends State<MainScreen> {
         ],
       ),
       backgroundColor: AppColors.backgroundBlue,
-      body: Money.income.isNotEmpty || Money.expenses.isNotEmpty
-          ? Container()
+      body: Money.expenses.isNotEmpty
+          ? ListView.builder(
+              itemCount: Money.expenses.length,
+              itemBuilder: (context, index) {
+                final expense = Money.expenses[index];
+                return ExpensesWidget(
+                  mainDescription: expense.description,
+                  description: expense.date,
+                  sum: expense.sum.toString(),
+                  date: expense.date,
+                );
+              },
+            )
           : Column(
               //mainAxisAlignment: MainAxisAlignment.center,
               children: [
