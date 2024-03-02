@@ -1,4 +1,6 @@
+import 'package:finance_app/core/news/big_news_widget.dart';
 import 'package:finance_app/res/colors.dart';
+import 'package:finance_app/res/strings.dart';
 import 'package:finance_app/res/theme.dart';
 import 'package:flutter/material.dart';
 
@@ -7,12 +9,14 @@ class LittleNews extends StatefulWidget {
   final String mainDescription;
   final String description;
   final String date;
+  final String longDescription;
   const LittleNews(
       {super.key,
       required this.img,
       required this.mainDescription,
       required this.description,
-      required this.date});
+      required this.date,
+      required this.longDescription});
 
   @override
   State<LittleNews> createState() => _LittleNewsState();
@@ -25,10 +29,22 @@ class _LittleNewsState extends State<LittleNews> {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       child: InkWell(
-        onTap: () {},
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => BigNews(
+                img: widget.img,
+                mainDescription: widget.mainDescription,
+                description: widget
+                    .longDescription, // Пример использования текста из AppStrings
+                date: widget.date,
+              ),
+            ),
+          );
+        },
         child: Container(
-          width: 358,
-          height: 216,
+          // Удаление фиксированного размера для динамического изменения размера
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(16),
               color: AppColors.darkBlue),
@@ -63,11 +79,14 @@ class _LittleNewsState extends State<LittleNews> {
                   ),
                 ],
               ),
-              Text(widget.description,
-                  style: TextStyle(
-                    color: AppColors.grey,
-                    fontWeight: FontWeight.w400,
-                  ))
+              // Использование SingleChildScrollView для добавления прокрутки
+              SingleChildScrollView(
+                child: Text(widget.description,
+                    style: TextStyle(
+                      color: AppColors.grey,
+                      fontWeight: FontWeight.w400,
+                    )),
+              )
             ],
           ),
         ),

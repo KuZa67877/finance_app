@@ -1,5 +1,5 @@
 import 'package:finance_app/res/colors.dart';
-import 'package:finance_app/app/main_screen.dart';
+import 'package:finance_app/features/main_screen.dart';
 import 'package:finance_app/features/news_screen.dart';
 import 'package:finance_app/features/settings.dart';
 import 'package:finance_app/features/start_screen_widget.dart';

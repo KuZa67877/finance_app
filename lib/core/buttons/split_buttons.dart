@@ -4,6 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 class SplitButton extends StatefulWidget {
+  final Function(int) onSelected;
+  SplitButton({required this.onSelected});
+
   @override
   _SplitButtonState createState() => _SplitButtonState();
 }
@@ -21,7 +24,10 @@ class _SplitButtonState extends State<SplitButton> {
       invertedSelection: true,
       children: [
         ButtonBarEntry(
-            onTap: () => setState(() => _selectedIndex = 0),
+            onTap: () {
+              setState(() => _selectedIndex = 0);
+              widget.onSelected(0); // Вызываем callback
+            },
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -39,7 +45,10 @@ class _SplitButtonState extends State<SplitButton> {
               ],
             )),
         ButtonBarEntry(
-            onTap: () => setState(() => _selectedIndex = 1),
+            onTap: () {
+              setState(() => _selectedIndex = 1);
+              widget.onSelected(1); // Вызываем callback
+            },
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [

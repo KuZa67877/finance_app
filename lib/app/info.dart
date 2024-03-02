@@ -52,6 +52,6 @@ class Money {
   static int getTotalSum() {
     int incomeSum = income.fold(0, (sum, expense) => sum + expense.sum);
     int expensesSum = expenses.fold(0, (sum, expense) => sum + expense.sum);
-    return incomeSum + expensesSum;
+    return incomeSum - expensesSum;
   }
 }
