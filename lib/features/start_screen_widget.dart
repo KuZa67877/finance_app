@@ -32,9 +32,11 @@ class _StartScreenState extends State<StartScreen> {
                 style: theme.bodyMedium,
                 maxLines: 3,
               ),
-              Padding(
-                padding: const EdgeInsets.only(top: 96),
-                child: DefaultButton(text: "Начать"),
+              const Padding(
+                padding: EdgeInsets.only(top: 96),
+                child: DefaultButton(
+                  text: "Начать",
+                ),
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 48),

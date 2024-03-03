@@ -1,3 +1,4 @@
+import 'package:finance_app/app/navigation_bar.dart';
 import 'package:finance_app/res/colors.dart';
 import 'package:finance_app/res/theme.dart';
 import 'package:flutter/material.dart';
@@ -15,7 +16,12 @@ class _DefaultButtonState extends State<DefaultButton> {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => MyNavigationBar()),
+          );
+        },
         child: Container(
           width: 358,
           height: 48,

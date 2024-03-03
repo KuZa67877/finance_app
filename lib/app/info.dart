@@ -1,30 +1,72 @@
 import 'package:finance_app/app/storage_service.dart';
+import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Expenses {
   final int sum;
-  final int theme;
+  final String theme;
   final String description;
-  final String date;
-  Expenses(
-      {required this.sum,
-      required this.theme,
-      required this.description,
-      required this.date});
+  final DateTime dateTime; // Новое поле для хранения даты в формате DateTime
+
+  Expenses({
+    required this.sum,
+    required this.theme,
+    required this.description,
+    required this.dateTime, // Используйте dateTime для создания объекта
+  });
+
   @override
   String toString() {
-    return '$sum|$theme|$description|$date';
+    return '$sum|$theme|$description|${dateTime.toIso8601String()}'; // Сохраняем в формате ISO 8601
   }
 
   static Expenses fromString(String expenseString) {
     final parts = expenseString.split('|');
     return Expenses(
       sum: int.parse(parts[0]),
-      theme: int.parse(parts[1]),
+      theme: parts[1].toString(),
       description: parts[2],
-      date: parts[3],
+      dateTime: DateTime.parse(
+          convertDateFormat(parts[3])), // Преобразуем строку обратно в DateTime
     );
   }
+}
+
+String convertDateFormat(String originalDate) {
+  final format = DateFormat("d/M/yyyy");
+  final date = format.parse(originalDate);
+  return DateFormat("yyyy-MM-dd").format(date);
+}
+
+String formatDateString(String dateString) {
+  // Словари для месяцев и дней недели на русском языке
+  final Map<String, String> months = {
+    '01': 'января',
+    '02': 'февраля',
+    '03': 'марта',
+    '04': 'апреля',
+    '05': 'мая',
+    '06': 'июня',
+    '07': 'июля',
+    '08': 'августа',
+    '09': 'сентября',
+    '10': 'октября',
+    '11': 'ноября',
+    '12': 'декабря',
+  };
+
+  // Разделение строки даты на составляющие
+  final parts = dateString.split('-');
+  final year = parts[0];
+  final month = months[parts[
+      1]]!; // Используем map для преобразования числового представления месяца в название
+  final day = parts[2];
+
+  // Формирование строки даты в требуемом формате
+  String formattedDate = '$day ${month}, $year';
+
+  return formattedDate;
 }
 
 class Money {
@@ -36,12 +78,12 @@ class Money {
     expenses = await storageService.loadExpenses();
   }
 
-  static Future<void> clearIncome() async {
-    income.clear(); // Очищаем список доходов
+  static Future<void> clearExpenses() async {
+    expenses.clear(); // Очищаем список расходов
     // Если необходимо, сохраняем изменения в хранилище
     // Например, если вы используете SharedPreferences
     final prefs = await SharedPreferences.getInstance();
-    await prefs.setStringList('income', []);
+    await prefs.setStringList('expenses', []);
   }
 
   static Future<void> addExpense(Expenses expense) async {
@@ -49,9 +91,16 @@ class Money {
     await storageService.saveExpenses(expenses);
   }
 
+  static Future<void> clearData() async {
+    income.clear();
+    expenses.clear();
+    await storageService
+        .saveExpenses([]); // Save an empty list to persist the state
+  }
+
   static int getTotalSum() {
     int incomeSum = income.fold(0, (sum, expense) => sum + expense.sum);
     int expensesSum = expenses.fold(0, (sum, expense) => sum + expense.sum);
-    return incomeSum - expensesSum;
+    return (incomeSum - expensesSum) * -1;
   }
 }

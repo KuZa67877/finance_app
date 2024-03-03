@@ -66,47 +66,47 @@ class ReloadSumButton extends StatefulWidget {
 
 class _ReloadSumButtonState extends State<ReloadSumButton> {
   final theme = getTheme().textTheme;
+
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
       child: InkWell(
-          onTap: () {
-            Money.clearIncome();
-          },
-          child: Container(
-            width: 358,
-            height: 48,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(16),
-                color: AppColors.darkBlue),
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Expanded(
-                    // Используйте Expanded для растягивания текста
-                    child: Row(
-                      mainAxisAlignment:
-                          MainAxisAlignment.center, // Выравнивание по центру
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(right: 8.0),
-                          child: SvgPicture.asset("assets/reload.svg"),
-                        ),
-                        Text(
-                          "Перезагрузить сумму",
-                          style: theme.bodyMedium,
-                        ),
-                      ],
-                    ),
+        onTap: () {
+          Money.clearData();
+          Money.loadData();
+        },
+        child: Container(
+          width: 358,
+          height: 48,
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(16),
+              color: AppColors.darkBlue),
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(right: 8.0),
+                        child: SvgPicture.asset("assets/reload.svg"),
+                      ),
+                      Text(
+                        "Перезагрузить сумму",
+                        style: theme.bodyMedium,
+                      ),
+                    ],
                   ),
-                  // Иконка будет прибита к правому краю, если она добавлена здесь
-                ],
-              ),
+                ),
+              ],
             ),
-          )),
+          ),
+        ),
+      ),
     );
   }
 }

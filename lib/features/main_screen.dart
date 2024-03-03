@@ -3,7 +3,6 @@ import 'package:finance_app/core/expenses_widget.dart';
 import 'package:finance_app/res/colors.dart';
 import 'package:finance_app/app/info.dart';
 import 'package:finance_app/core/buttons/split_buttons.dart';
-import 'package:finance_app/res/strings.dart';
 import 'package:finance_app/res/theme.dart';
 import 'package:flutter/material.dart';
 
@@ -48,9 +47,9 @@ class _MainScreenState extends State<MainScreen> {
       if (newExpense != null) {
         setState(() {
           if (_selectedIndex == 0) {
-            Money.expenses.add(newExpense);
+            Money.expenses.add(newExpense); // Добавляем расход
           } else {
-            Money.income.add(newExpense);
+            Money.income.add(newExpense); // Добавляем доход
           }
         });
       }
@@ -102,9 +101,9 @@ class _MainScreenState extends State<MainScreen> {
                       final expense = Money.expenses[index];
                       return ExpensesWidget(
                         mainDescription: expense.description,
-                        description: expense.date,
+                        description: expense.theme,
                         sum: expense.sum.toString(),
-                        date: expense.date,
+                        date: expense.dateTime.toIso8601String(),
                       );
                     },
                   )
@@ -114,9 +113,9 @@ class _MainScreenState extends State<MainScreen> {
                       final income = Money.income[index];
                       return ExpensesWidget(
                         mainDescription: income.description,
-                        description: income.date,
+                        description: income.theme,
                         sum: income.sum.toString(),
-                        date: income.date,
+                        date: income.dateTime.toIso8601String(),
                       );
                     },
                   ),

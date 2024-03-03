@@ -1,6 +1,5 @@
 import 'package:finance_app/core/news/big_news_widget.dart';
 import 'package:finance_app/res/colors.dart';
-import 'package:finance_app/res/strings.dart';
 import 'package:finance_app/res/theme.dart';
 import 'package:flutter/material.dart';
 

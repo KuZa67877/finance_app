@@ -1,3 +1,4 @@
+import 'package:finance_app/app/info.dart';
 import 'package:finance_app/res/colors.dart';
 import 'package:finance_app/res/theme.dart';
 import 'package:flutter/material.dart';
@@ -48,14 +49,17 @@ class ExpensesWidget extends StatelessWidget {
             child: Column(
               children: [
                 Text(
-                  "$sum ₽",
+                  sum.startsWith("-")
+                      ? "$sum ₽"
+                      : "$sum ₽", // Добавляем знак минуса перед суммой, если она отрицательная
                   style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w700,
                       color: AppColors.grey),
                 ),
                 Text(
-                  date,
+                  //date.substring(0, 10),
+                  formatDateString(date.substring(0, 10)),
                   style: theme.bodySmall,
                 )
               ],

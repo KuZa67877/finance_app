@@ -1,6 +1,5 @@
 import 'package:finance_app/app/info.dart';
 import 'package:finance_app/res/colors.dart';
-import 'package:finance_app/core/buttons/default_button.dart';
 import 'package:finance_app/core/textfield.dart';
 import 'package:finance_app/res/theme.dart';
 import 'package:flutter/material.dart';
@@ -14,8 +13,10 @@ class SignInOptionsScreen extends StatefulWidget {
 }
 
 class _SignInOptionsScreenState extends State<SignInOptionsScreen> {
+  List<String> buttons = ["Заработная плата", "Инвестиции", "Выигрыш"];
   final theme = getTheme().textTheme;
   int? selectedButton;
+  String selectedDescription = '';
   final options = GroupButtonOptions(
     selectedShadow: const [],
     selectedTextStyle: const TextStyle(
@@ -31,21 +32,9 @@ class _SignInOptionsScreenState extends State<SignInOptionsScreen> {
       fontWeight: FontWeight.w500,
       color: AppColors.grey,
     ),
-
     borderRadius: BorderRadius.circular(8),
-    // spacing: 10,
-    // runSpacing: 10,
-    // groupingType: GroupingType.wrap,
-    // direction: Axis.horizontal,
     buttonHeight: 40,
-    //buttonWidth: 40,
-    // mainGroupAlignment: MainGroupAlignment.start,
-    // crossGroupAlignment: CrossGroupAlignment.start,
-    // groupRunAlignment: GroupRunAlignment.start,
-    // textAlign: TextAlign.center,
     textPadding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-    // alignment: Alignment.center,
-    // elevation: 0,
   );
   final descriptionController = TextEditingController();
   final sumController = TextEditingController();
@@ -140,7 +129,7 @@ class _SignInOptionsScreenState extends State<SignInOptionsScreen> {
                         color: AppColors.deepGrey)),
               ),
             ),
-            TextFieldWidget(
+            DateTextField(
               info: "",
               controller: dateController,
               isString: true,
@@ -164,13 +153,12 @@ class _SignInOptionsScreenState extends State<SignInOptionsScreen> {
                     options: options,
                     isRadio: true,
                     onSelected: (index, isSelected, selectedIndex) {
-                      if (isSelected == selectedIndex) {
-                        print('$index button is selected');
-                      } else {
-                        print('$index button is deselected');
-                      }
+                      setState(() {
+                        selectedDescription = index;
+                        print(index); // Сохраняем текст выбранной кнопки
+                      });
                     },
-                    buttons: ["Заработная плата", "Инвестиции", "Выигрыш"],
+                    buttons: buttons,
                   ),
                 ],
               ),
@@ -179,14 +167,15 @@ class _SignInOptionsScreenState extends State<SignInOptionsScreen> {
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
               child: ElevatedButton(
                 onPressed: () {
-                  // Предположим, что вы уже создали новый объект Expenses
                   Expenses newExpense = Expenses(
                     sum: int.parse(sumController.text),
-                    theme: 1, // Вам нужно будет определить, как выбирается тема
-                    description: descriptionController.text,
-                    date: dateController.text,
+                    theme:
+                        selectedDescription, // Вам нужно будет определить, как выбирается тема
+                    description: descriptionController
+                        .text, // Используйте selectedDescription здесь
+                    dateTime: DateTime.parse(convertDateFormat(
+                        dateController.text)), // Преобразуем строку в DateTime
                   );
-                  //Money.addExpense(newExpense);
                   Navigator.pop(
                       context, newExpense); // Передаем новый расход обратно
                 },

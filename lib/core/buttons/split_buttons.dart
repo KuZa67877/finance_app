@@ -69,3 +69,74 @@ class _SplitButtonState extends State<SplitButton> {
     );
   }
 }
+
+class DateSplitButtons extends StatefulWidget {
+  final Function(int) onSelected;
+  const DateSplitButtons({super.key, required this.onSelected});
+
+  @override
+  State<DateSplitButtons> createState() => _DateSplitButtonsState();
+}
+
+class _DateSplitButtonsState extends State<DateSplitButtons> {
+  int _selectedIndex = 0;
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedButtonBar(
+      backgroundColor: AppColors.darkBlue,
+      foregroundColor: AppColors.white,
+      radius: 8.0,
+      padding: const EdgeInsets.all(16.0),
+      invertedSelection: true,
+      children: [
+        // Добавляем кнопки для выбора периода
+        ButtonBarEntry(
+            onTap: () {
+              setState(() => _selectedIndex = 2);
+              widget.onSelected(2); // Вызываем callback с индексом для недели
+            },
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text('Неделя',
+                    style: TextStyle(
+                        color: _selectedIndex == 2
+                            ? AppColors.white
+                            : AppColors.grey)),
+              ],
+            )),
+        ButtonBarEntry(
+            onTap: () {
+              setState(() => _selectedIndex = 3);
+              widget.onSelected(3); // Вызываем callback с индексом для месяца
+            },
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text('Месяц',
+                    style: TextStyle(
+                        color: _selectedIndex == 3
+                            ? AppColors.white
+                            : AppColors.grey)),
+              ],
+            )),
+        ButtonBarEntry(
+            onTap: () {
+              setState(() => _selectedIndex = 4);
+              widget.onSelected(4); // Вызываем callback с индексом для года
+            },
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text('Год',
+                    style: TextStyle(
+                        color: _selectedIndex == 4
+                            ? AppColors.white
+                            : AppColors.grey)),
+              ],
+            )),
+        // Оставшаяся часть кода остается без изменений
+      ],
+    );
+  }
+}
