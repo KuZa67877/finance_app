@@ -1,3 +1,4 @@
+import 'package:finance_app/features/analytics_screen.dart';
 import 'package:finance_app/res/colors.dart';
 import 'package:finance_app/features/main_screen.dart';
 import 'package:finance_app/features/news_screen.dart';

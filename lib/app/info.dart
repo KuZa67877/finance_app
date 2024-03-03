@@ -1,5 +1,6 @@
 import 'package:finance_app/app/storage_service.dart';
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -72,30 +73,31 @@ String formatDateString(String dateString) {
 class Money {
   static List<Expenses> income = [];
   static List<Expenses> expenses = [];
-  static final StorageService storageService = StorageService();
 
-  static Future<void> loadData() async {
-    expenses = await storageService.loadExpenses();
+  static Future<List<Expenses>> loadData() async {
+    final expensesBox = Hive.box<List<Expenses>>('expenses');
+    List<Expenses> expenses = expensesBox.get('expenses') ?? [];
+    // Возвращаем список объектов Expenses
+    return expenses;
   }
 
   static Future<void> clearExpenses() async {
-    expenses.clear(); // Очищаем список расходов
-    // Если необходимо, сохраняем изменения в хранилище
-    // Например, если вы используете SharedPreferences
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setStringList('expenses', []);
+    expenses.clear();
+    final expensesBox = Hive.box<List<Expenses>>('expenses');
+    await expensesBox.put('expenses', []);
   }
 
   static Future<void> addExpense(Expenses expense) async {
     expenses.add(expense);
-    await storageService.saveExpenses(expenses);
+    final expensesBox = Hive.box<List<Expenses>>('expenses');
+    await expensesBox.put('expenses', expenses);
   }
 
   static Future<void> clearData() async {
     income.clear();
     expenses.clear();
-    await storageService
-        .saveExpenses([]); // Save an empty list to persist the state
+    final expensesBox = Hive.box<List<Expenses>>('expenses');
+    await expensesBox.put('expenses', []);
   }
 
   static int getTotalSum() {

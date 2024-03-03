@@ -1,107 +1,75 @@
-// import 'package:finance_app/app/info.dart';
-// import 'package:fl_chart/fl_chart.dart';
-// import 'package:flutter/material.dart';
-// import 'package:intl/intl.dart';
+import 'package:flutter/material.dart';
+import 'package:fl_chart/fl_chart.dart';
+import 'package:finance_app/app/info.dart';
+import 'package:finance_app/app/storage_service.dart';
+import 'package:hive/hive.dart';
 
-// class BarGraph extends StatefulWidget {
-//   final List<Expenses> income;
-//   final List<Expenses> expenses;
-//   final DateTime selectedRange;
+class ExpensesBarChartScreen extends StatefulWidget {
+  @override
+  _ExpensesBarChartScreenState createState() => _ExpensesBarChartScreenState();
+}
 
-//   BarGraph({required this.income, required this.expenses, required this.selectedRange});
+class _ExpensesBarChartScreenState extends State<ExpensesBarChartScreen> {
+  late Future<List<Expenses>> _expensesFuture;
 
-//   @override
-//   _BarGraphState createState() => _BarGraphState();
-// }
+  @override
+  void initState() {
+    super.initState();
+    _expensesFuture = Money.loadData();
+  }
 
-// class _BarGraphState extends State<BarGraph> {
-//   List<BarChartGroupData> _barData = [];
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Бар-диаграмма доходов и расходов'),
+      ),
+      // body: FutureBuilder<List<Expenses>>(
+      //   future: _expensesFuture,
+      //   builder: (context, snapshot) {
+      //     if (snapshot.connectionState == ConnectionState.waiting) {
+      //       return Center(child: CircularProgressIndicator());
+      //     } else if (snapshot.hasError) {
+      //       return Center(child: Text('Ошибка загрузки данных'));
+      //     } else {
+      //       return BarChart(
+      //         BarChartData(
+      //           barGroups: _createBarGroups(snapshot.data!),
+      //         ),
+      //       );
+      //     }
+      //   },
+      // ),
+    );
+  }
 
-//   @override
-//   void initState() {
-//     super.initState();
-//     _updateBarData();
-//   }
+  // List<BarChartGroupData> _createBarGroups(List<Expenses> expenses) {
+  //   // Сначала сгруппируйте данные по датам и суммируйте значения
+  //   Map<DateTime, int> expensesByDate = {};
+  //   for (var expense in expenses) {
+  //     if (expensesByDate.containsKey(expense.dateTime)) {
+  //       expensesByDate[expense.dateTime] =
+  //           expensesByDate[expense.dateTime]! + expense.sum;
+  //     } else {
+  //       expensesByDate[expense.dateTime] = expense.sum;
+  //     }
+  //   }
 
-//   void _updateBarData() {
-//     final now = DateTime.now();
-//     final startDate = _getStartDate(widget.selectedRange);
-//     final endDate = _getEndDate(widget.selectedRange);
+  //   // Преобразуйте данные в BarChartGroupData
+  //   List<BarChartGroupData> barGroups = [];
+  //   for (var entry in expensesByDate.entries) {
+  //     barGroups.add(
+  //       BarChartGroupData(
+  //         x: entry.key.day, // Используйте день как значение x
+  //         barRods: [
+  //           BarChartRodData(
+  //             toY: entry.value.toDouble(),
+  //           ),
+  //         ],
+  //       ),
+  //     );
+  //   }
 
-//     final incomeData = _filterData(widget.income, startDate, endDate);
-//     final expensesData = _filterData(widget.expenses, startDate, endDate);
-
-//     final totalSum = incomeData.fold(0, (sum, expense) => sum + expense.sum) -
-//         expensesData.fold(0, (sum, expense) => sum + expense.sum);
-
-//     setState(() {
-//       _barData = [
-//         BarChartGroupData(
-//           x: 0,
-//           barsSpace: 4,
-//           showingTooltipIndicators: [0],
-//           children: [
-//             BarChartRodData(
-//               y: totalSum,
-//               width: 12,
-//               colors: [AppColors.green],
-//               borderRadius: BorderRadius.circular(8),
-//               backDrawRodData: BackgroundBarChartRodData(
-//                 show: true,
-//                 toY: 0,
-//                 colors: [AppColors.white],
-//               ),
-//             ),
-//           ],
-//         ),
-//         BarChartGroupData(
-//           x: 1,
-//           barsSpace: 4,
-//           showingTooltipIndicators: [0],
-//           children: [
-//             BarChartRodData(
-//               y: incomeData.fold(0, (sum, expense) => sum + expense.sum),
-//               width: 12,
-//               colors: [AppColors.green],
-//               borderRadius: BorderRadius.circular(8),
-//               backDrawRodData: BackgroundBarChartRodData(
-//                 show: true,
-//                 toY: 0,
-//                 colors: [AppColors.white],
-//               ),
-//             ),
-//           ],
-//         ),
-//         BarChartGroupData(
-//           x: 2,
-//           barsSpace: 4,
-//           showingTooltipIndicators: [0],
-//           children: [
-//             BarChartRodData(
-//               y: expensesData.fold(0, (sum, expense) => sum + expense.sum),
-//               width: 12,
-//               colors: [AppColors.red],
-//               borderRadius: BorderRadius.circular(8),
-//               backDrawRodData: BackgroundBarChartRodData(
-//                 show: true,
-//                 toY: 0,
-//                 colors: [AppColors.white],
-//               ),
-//             ),
-//           ],
-//         ),
-//       ];
-//     });
-//   }
-
-//   List<Expenses> _filterData(List<Expenses> data, DateTime startDate, DateTime endDate) {
-//     return data.where((expense) {
-//       final expenseDate = DateTime.parse(expense.date);
-//       return expense
-      
-//         @override
-//         Widget build(BuildContext context) {
-//           // TODO: implement build
-//           throw UnimplementedError();
-//         }
-//       }
+  //   return barGroups;
+  // }
+}
