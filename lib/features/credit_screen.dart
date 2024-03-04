@@ -103,7 +103,10 @@ class _CreditScreenState extends State<CreditScreen> {
               Padding(
                   padding: const EdgeInsets.only(top: 20, right: 16),
                   child: ElevatedButton(
-                    child: Text("Рассчитать"),
+                    child: const Padding(
+                      padding: EdgeInsets.only(left: 130, right: 136),
+                      child: Text("Добавить", softWrap: false),
+                    ),
                     onPressed: () {
                       double sum = double.parse(sumController.text);
                       double deposit = double.parse(depositController.text);

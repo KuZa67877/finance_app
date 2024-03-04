@@ -1,4 +1,5 @@
 import 'package:finance_app/app/navigation_bar.dart';
+import 'package:finance_app/res/colors.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -13,7 +14,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(seedColor: AppColors.darkBlue),
         useMaterial3: true,
       ),
       home: MyNavigationBar(),

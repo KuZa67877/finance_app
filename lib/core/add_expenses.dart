@@ -157,7 +157,7 @@ class _SignInOptionsScreenState extends State<SignInOptionsScreen> {
                     onSelected: (index, isSelected, selectedIndex) {
                       setState(() {
                         selectedDescription = index;
-                        print(index); // Сохраняем текст выбранной кнопки
+                        print(index);
                       });
                     },
                     buttons: buttons,
@@ -171,17 +171,17 @@ class _SignInOptionsScreenState extends State<SignInOptionsScreen> {
                 onPressed: () {
                   Expenses newExpense = Expenses(
                     sum: int.parse(sumController.text),
-                    theme:
-                        selectedDescription, // Вам нужно будет определить, как выбирается тема
-                    description: descriptionController
-                        .text, // Используйте selectedDescription здесь
-                    dateTime: DateTime.parse(convertDateFormat(
-                        dateController.text)), // Преобразуем строку в DateTime
+                    theme: selectedDescription,
+                    description: descriptionController.text,
+                    dateTime:
+                        DateTime.parse(convertDateFormat(dateController.text)),
                   );
-                  Navigator.pop(
-                      context, newExpense); // Передаем новый расход обратно
+                  Navigator.pop(context, newExpense);
                 },
-                child: Text("Добавить"),
+                child: const Padding(
+                  padding: EdgeInsets.only(left: 130, right: 136),
+                  child: Text("Добавить", softWrap: false),
+                ),
               ),
             )
           ],
