@@ -7,11 +7,13 @@ class TextFieldWidget extends StatefulWidget {
   final String info;
   final TextEditingController controller;
   final bool isString;
+  final int width;
   const TextFieldWidget(
       {super.key,
       required this.info,
       required this.controller,
-      required this.isString});
+      required this.isString,
+      required this.width});
 
   @override
   State<TextFieldWidget> createState() => _TextFieldWidgetState();
@@ -22,11 +24,13 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 358,
+      width: widget.width.toDouble(),
       height: 48,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16), color: AppColors.darkBlue),
       child: TextField(
+        style: TextStyle(
+            color: AppColors.grey, fontWeight: FontWeight.w400, fontSize: 14),
         keyboardType:
             widget.isString ? TextInputType.text : TextInputType.number,
         controller: widget.controller,

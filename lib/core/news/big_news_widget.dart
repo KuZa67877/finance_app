@@ -1,4 +1,5 @@
 import 'package:finance_app/res/colors.dart';
+import 'package:finance_app/res/strings.dart';
 import 'package:finance_app/res/theme.dart';
 import 'package:flutter/material.dart';
 
@@ -24,13 +25,25 @@ class _BigNewsState extends State<BigNews> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.backgroundBlue,
+      appBar: AppBar(
+        backgroundColor: AppColors.backgroundBlue,
+        elevation: 0,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () => Navigator.pop(
+              context), // Закрытие текущего экрана и возврат на предыдущий
+        ),
+        title: Text(AppStrings.news, style: theme.bodyLarge),
+      ),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Container(
-            decoration: BoxDecoration(borderRadius: BorderRadius.circular(16)),
-            width: 358,
-            child: Column(children: [
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(16),
+                color: AppColors.darkBlue),
+            child:
+                Column(mainAxisAlignment: MainAxisAlignment.start, children: [
               Text(
                 widget.mainDescription,
                 style: theme.bodyLarge,
@@ -43,7 +56,16 @@ class _BigNewsState extends State<BigNews> {
                     BoxDecoration(borderRadius: BorderRadius.circular(8)),
                 child: widget.img,
               ),
-              Text(widget.description)
+              Padding(
+                padding: const EdgeInsets.all(16),
+                child: Text(
+                  widget.description,
+                  style: TextStyle(
+                      fontWeight: FontWeight.w400,
+                      fontSize: 14,
+                      color: AppColors.grey),
+                ),
+              )
             ]),
           ),
         ),

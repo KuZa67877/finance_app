@@ -22,7 +22,7 @@ class _StartScreenState extends State<StartScreen> {
           child: Column(
             children: [
               const Padding(
-                padding: EdgeInsets.only(top: 72),
+                padding: EdgeInsets.only(top: 30),
                 child:
                     Image(image: AssetImage('assets/start_screen_image.png')),
               ),
@@ -33,13 +33,13 @@ class _StartScreenState extends State<StartScreen> {
                 maxLines: 3,
               ),
               const Padding(
-                padding: EdgeInsets.only(top: 96),
+                padding: EdgeInsets.only(top: 26),
                 child: DefaultButton(
                   text: "Начать",
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(top: 48),
+                padding: const EdgeInsets.only(top: 10),
                 child: TextButton(
                   onPressed: () {},
                   child: Text(

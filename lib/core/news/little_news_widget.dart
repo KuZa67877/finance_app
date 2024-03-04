@@ -80,11 +80,14 @@ class _LittleNewsState extends State<LittleNews> {
               ),
               // Использование SingleChildScrollView для добавления прокрутки
               SingleChildScrollView(
-                child: Text(widget.description,
-                    style: TextStyle(
-                      color: AppColors.grey,
-                      fontWeight: FontWeight.w400,
-                    )),
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Text(widget.description,
+                      style: TextStyle(
+                        color: AppColors.grey,
+                        fontWeight: FontWeight.w400,
+                      )),
+                ),
               )
             ],
           ),

@@ -101,6 +101,7 @@ class _SignInOptionsScreenState extends State<SignInOptionsScreen> {
               info: "Например (Покупка велосипеда)",
               controller: descriptionController,
               isString: true,
+              width: 358,
             ),
             const Padding(
               padding: EdgeInsets.only(left: 16, bottom: 8),
@@ -114,6 +115,7 @@ class _SignInOptionsScreenState extends State<SignInOptionsScreen> {
               ),
             ),
             TextFieldWidget(
+              width: 358,
               info: "0 Р",
               controller: sumController,
               isString: false,

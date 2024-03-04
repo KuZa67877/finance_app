@@ -24,7 +24,7 @@ class _DefaultSettingsButtonState extends State<DefaultSettingsButton> {
           onTap: () {},
           child: Container(
             width: 358,
-            height: 48,
+            height: 52,
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(16),
                 color: AppColors.darkBlue),
@@ -43,7 +43,10 @@ class _DefaultSettingsButtonState extends State<DefaultSettingsButton> {
                       ),
                       Text(
                         widget.text,
-                        style: theme.bodyMedium,
+                        style: TextStyle(
+                            fontWeight: FontWeight.w400,
+                            fontSize: 14,
+                            color: AppColors.grey),
                       ),
                     ],
                   ),
@@ -78,7 +81,7 @@ class _ReloadSumButtonState extends State<ReloadSumButton> {
         },
         child: Container(
           width: 358,
-          height: 48,
+          height: 52,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(16),
               color: AppColors.darkBlue),
@@ -97,7 +100,10 @@ class _ReloadSumButtonState extends State<ReloadSumButton> {
                       ),
                       Text(
                         "Перезагрузить сумму",
-                        style: theme.bodyMedium,
+                        style: TextStyle(
+                            fontWeight: FontWeight.w400,
+                            fontSize: 14,
+                            color: AppColors.grey),
                       ),
                     ],
                   ),

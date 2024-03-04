@@ -1,3 +1,4 @@
+import 'package:finance_app/features/credit_screen.dart';
 import 'package:finance_app/res/colors.dart';
 import 'package:finance_app/features/main_screen.dart';
 import 'package:finance_app/features/news_screen.dart';
@@ -18,7 +19,7 @@ class _MyNavigationBarState extends State<MyNavigationBar> {
   List<Widget> screens = [
     MainScreen(),
     StartScreen(),
-    StartScreen(),
+    CreditScreen(),
     NewsScreen(),
     SettingsScreen(),
   ];
