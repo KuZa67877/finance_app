@@ -72,14 +72,16 @@ class _SplitButtonState extends State<SplitButton> {
 
 class DateSplitButtons extends StatefulWidget {
   final Function(int) onSelected;
-  const DateSplitButtons({super.key, required this.onSelected});
+  final int selectedIndex;
+
+  const DateSplitButtons(
+      {super.key, required this.onSelected, required this.selectedIndex});
 
   @override
   State<DateSplitButtons> createState() => _DateSplitButtonsState();
 }
 
 class _DateSplitButtonsState extends State<DateSplitButtons> {
-  int _selectedIndex = 0;
   @override
   Widget build(BuildContext context) {
     return AnimatedButtonBar(
@@ -89,53 +91,62 @@ class _DateSplitButtonsState extends State<DateSplitButtons> {
       padding: const EdgeInsets.all(16.0),
       invertedSelection: true,
       children: [
-        // Добавляем кнопки для выбора периода
         ButtonBarEntry(
             onTap: () {
-              setState(() => _selectedIndex = 2);
-              widget.onSelected(2); // Вызываем callback с индексом для недели
+              widget.onSelected(0); // Вызываем callback
+            },
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text('Сегодня',
+                    style: TextStyle(
+                        color: widget.selectedIndex == 0
+                            ? AppColors.white
+                            : AppColors.grey)),
+              ],
+            )),
+        ButtonBarEntry(
+            onTap: () {
+              widget.onSelected(1); // Вызываем callback
             },
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text('Неделя',
                     style: TextStyle(
-                        color: _selectedIndex == 2
+                        color: widget.selectedIndex == 1
                             ? AppColors.white
                             : AppColors.grey)),
               ],
             )),
         ButtonBarEntry(
             onTap: () {
-              setState(() => _selectedIndex = 3);
-              widget.onSelected(3); // Вызываем callback с индексом для месяца
+              widget.onSelected(2); // Вызываем callback
             },
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text('Месяц',
                     style: TextStyle(
-                        color: _selectedIndex == 3
+                        color: widget.selectedIndex == 2
                             ? AppColors.white
                             : AppColors.grey)),
               ],
             )),
         ButtonBarEntry(
             onTap: () {
-              setState(() => _selectedIndex = 4);
-              widget.onSelected(4); // Вызываем callback с индексом для года
+              widget.onSelected(3); // Вызываем callback
             },
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text('Год',
                     style: TextStyle(
-                        color: _selectedIndex == 4
+                        color: widget.selectedIndex == 3
                             ? AppColors.white
                             : AppColors.grey)),
               ],
             )),
-        // Оставшаяся часть кода остается без изменений
       ],
     );
   }

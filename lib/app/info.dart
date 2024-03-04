@@ -88,7 +88,9 @@ class Money {
 
   static Future<void> addExpense(Expenses expense) async {
     expenses.add(expense);
-    await storageService.saveExpenses(expenses);
+    final prefs = await SharedPreferences.getInstance();
+    final updatedExpenses = expenses.map((e) => e.toString()).toList();
+    await prefs.setStringList('expenses', updatedExpenses);
   }
 
   static Future<void> clearData() async {
