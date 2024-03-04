@@ -7,13 +7,12 @@ class Expenses {
   final int sum;
   final String theme;
   final String description;
-  final DateTime dateTime; // Новое поле для хранения даты в формате DateTime
-
+  final DateTime dateTime;
   Expenses({
     required this.sum,
     required this.theme,
     required this.description,
-    required this.dateTime, // Используйте dateTime для создания объекта
+    required this.dateTime,
   });
 
   @override
@@ -27,8 +26,7 @@ class Expenses {
       sum: int.parse(parts[0]),
       theme: parts[1].toString(),
       description: parts[2],
-      dateTime: DateTime.parse(
-          convertDateFormat(parts[3])), // Преобразуем строку обратно в DateTime
+      dateTime: DateTime.parse(convertDateFormat(parts[3])),
     );
   }
 }
@@ -40,7 +38,6 @@ String convertDateFormat(String originalDate) {
 }
 
 String formatDateString(String dateString) {
-  // Словари для месяцев и дней недели на русском языке
   final Map<String, String> months = {
     '01': 'января',
     '02': 'февраля',
@@ -56,14 +53,11 @@ String formatDateString(String dateString) {
     '12': 'декабря',
   };
 
-  // Разделение строки даты на составляющие
   final parts = dateString.split('-');
   final year = parts[0];
-  final month = months[parts[
-      1]]!; // Используем map для преобразования числового представления месяца в название
+  final month = months[parts[1]]!;
   final day = parts[2];
 
-  // Формирование строки даты в требуемом формате
   String formattedDate = '$day ${month}, $year';
 
   return formattedDate;
@@ -80,8 +74,6 @@ class Money {
 
   static Future<void> clearExpenses() async {
     expenses.clear(); // Очищаем список расходов
-    // Если необходимо, сохраняем изменения в хранилище
-    // Например, если вы используете SharedPreferences
     final prefs = await SharedPreferences.getInstance();
     await prefs.setStringList('expenses', []);
   }
